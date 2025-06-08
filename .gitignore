@@ -1,0 +1,43 @@
+# IDEs
+.idea/
+.vscode/
+*.code-workspace
+
+# Build artifacts
+build/
+Bin/
+Binaries/
+Debug/
+Release/
+x64/
+x86/
+*.sln
+*.vcxproj*
+*.vcproj
+
+# Compiled files
+*.o
+*.obj
+*.exe
+*.out
+*.dll
+!allegro_monolith-5.2.dll  # Keep this specific DLL
+*.so
+*.lib
+*.a
+*.pdb
+*.ilk
+
+# MacOS
+.DS_Store
+
+# Game-specific
+log.txt
+*.save
+*.bak
+Thumbs.db
+
+# Dependency folders (if any)
+deps/
+external/
+third_party/
