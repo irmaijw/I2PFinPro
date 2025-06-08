@@ -34,6 +34,7 @@
 #include "tool_game/ShovelTool.hpp"
 #include "tool_game/Tool.hpp"
 #include "Turret/Turret.hpp"
+#include "Soldier/Soldier.hpp"
 
 // TODO HACKATHON-4 (1/3): Trace how the game handles keyboard input.
 // TODO HACKATHON-4 (2/3): Find the cheat code sequence in this file.
@@ -87,6 +88,9 @@ void PlayScene::Initialize() {
     Engine::Resources::GetInstance().GetBitmap("lose/benjamin-happy.png");
     // Start BGM.
     bgmId = AudioHelper::PlayBGM("play.ogg");
+
+    playerSoldier = new Soldier(5 * BlockSize, 5 * BlockSize); // Start at (5,5) grid
+    AddNewObject(playerSoldier);
 }
 void PlayScene::Terminate() {
     AudioHelper::StopBGM(bgmId);
@@ -194,6 +198,16 @@ void PlayScene::Update(float deltaTime) {
         preview->Position = Engine::GameEngine::GetInstance().GetMousePosition();
         // To keep responding when paused.
         preview->Update(deltaTime);
+    }
+    if (playerSoldier) {
+        int dx = 0, dy = 0;
+        auto& engine = Engine::GameEngine::GetInstance();
+        if (engine.IsKeyDown(ALLEGRO_KEY_W)) dy -= 1;
+        if (engine.IsKeyDown(ALLEGRO_KEY_S)) dy += 1;
+        if (engine.IsKeyDown(ALLEGRO_KEY_A)) dx -= 1;
+        if (engine.IsKeyDown(ALLEGRO_KEY_D)) dx += 1;
+        if (dx != 0 || dy != 0)
+            playerSoldier->Move(dx, dy, deltaTime);
     }
 }
 void PlayScene::Draw() const {
@@ -305,6 +319,15 @@ void PlayScene::OnKeyDown(int keyCode) {
     else if (keyCode >= ALLEGRO_KEY_0 && keyCode <= ALLEGRO_KEY_9) {
         // Hotkey for Speed up.
         SpeedMult = keyCode - ALLEGRO_KEY_0;
+    }
+    if (playerSoldier) {
+        int dx = 0, dy = 0;
+        if (keyCode == ALLEGRO_KEY_W) dy = -1;
+        if (keyCode == ALLEGRO_KEY_S) dy = 1;
+        if (keyCode == ALLEGRO_KEY_A) dx = -1;
+        if (keyCode == ALLEGRO_KEY_D) dx = 1;
+        if (dx != 0 || dy != 0)
+            playerSoldier->Move(dx, dy, 0.1f); // Use a small delta time for immediate response
     }
 }
 void PlayScene::Hit() {

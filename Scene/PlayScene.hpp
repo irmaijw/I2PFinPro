@@ -12,6 +12,7 @@
 #include "tool_game/ShovelTool.hpp"
 #include "tool_game/ToolButton.hpp"
 #include "tool_game/Tool.hpp"
+#include "Soldier/Soldier.hpp"
 
 class Turret; // Forward declaration
 namespace Engine {
@@ -64,6 +65,7 @@ public:
     Turret *preview;
     Tool* tool_preview = nullptr; // Initialize directly here
     bool isShovelActive = false; // Initialize directly here
+    Soldier* playerSoldier = nullptr;
 
     std::vector<std::vector<TileType>> mapState;
     std::vector<std::vector<int>> mapDistance;

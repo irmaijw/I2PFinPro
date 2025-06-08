@@ -84,6 +84,11 @@ add_executable(2025_I2P2_TowerDefense
     Scene/ScoreScene.cpp
     Scene/ScoreScene.hpp
 
+    Soldier/Soldier.cpp
+    Soldier/Soldier.hpp
+    Soldier/PurpleSoldier.cpp
+    Soldier/PurpleSoldier.hpp
+
     Turret/LaserTurret.cpp
     Turret/LaserTurret.hpp
     Turret/MachineGunTurret.cpp
